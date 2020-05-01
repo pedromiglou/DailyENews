@@ -13,7 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import InputBase from "@material-ui/core/InputBase";
 // material icons
+import SearchIcon from "@material-ui/icons/Search";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 import FilterAllOrFavoriteIcon from "@material-ui/icons/StarBorder";
@@ -60,7 +62,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-
 function TopMenu(props) {
   const theme = useTheme();
   const classes = topMenuStyle();
@@ -97,6 +98,21 @@ function TopMenu(props) {
               onClick: () => props.markAllAsRead(true),
               icon: <MarkAllNonClusterAsReadIcon /> },
   };
+  const search = (
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+      <InputBase
+        placeholder="Search…"
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ 'aria-label': 'search' }}
+      />
+    </div>
+  );
 
   const commands = Object.keys(commandsDefs).map((key) => {
       if (burgered) {
@@ -162,6 +178,7 @@ function TopMenu(props) {
           onClose={() => setAnchorEl(null)}
         >
           {commands}
+          {search}
         </Menu>
       </div>
     );
@@ -170,6 +187,7 @@ function TopMenu(props) {
       <div>
         {showFeedList}
         {commands}
+        {search}
       </div>
     );
   }
