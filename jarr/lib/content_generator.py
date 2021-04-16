@@ -1,7 +1,7 @@
 import logging
 import re
 import urllib.parse
-from functools import lru_cache
+from functools import lru_cache, cached_property
 
 from goose3 import Goose
 from lxml import etree
@@ -9,17 +9,101 @@ from jarr.bootstrap import conf
 from jarr.controllers.article import to_vector
 from jarr.lib.enums import ArticleType, FeedType
 from jarr.lib.url_cleaners import remove_utm_tags
-from jarr.lib.utils import clean_lang
+from jarr.lib.utils import clean_lang, digest
 
 logger = logging.getLogger(__name__)
 IMG_ALT_MAX_LENGTH = 100
+# From : https://gist.github.com/TrevorJTClarke/a14c37db3c11ee23a700
+SCHEME = re.compile(r'^(?:https?:\/\/)')
 YOUTUBE_RE = re.compile(
-        r'^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))'
-        r'(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$')
+    r'^(?:https?:\/\/)?(?:i\.|www\.|img\.)?(?:youtu\.be\/|youtube\.com\/|ytim'
+    r'g\.com\/)(?:embed\/|v\/|vi\/|vi_webp\/|watch\?v=|watch\?.+&v=)((\w|-){'
+    r'11})(?:\S+)?$')
+VIMEO_RE = re.compile(
+    r'https?:\/\/(?:vimeo\.com\/|player\.vimeo\.com\/)(?:video\/|(?:channels'
+    r'\/staffpicks\/|channels\/)|)((\w|-){7,9})')
+SPOTIFY_RE = re.compile(
+    r'https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|track\/|\?uri=spotif'
+    r'y:track:)((\w|-){22})')
+SOUNDCLOUD_RE = re.compile(
+    r'https?:\/\/(?:w\.|www\.|)(?:soundcloud\.com\/)(?:(?:player\/\?url=http'
+    r's\%3A\/\/api.soundcloud.com\/tracks\/)|)(((\w|-)[^A-z]{7})|([A-Za-z0-9'
+    r']+(?:[-_][A-Za-z0-9]+)*(?!\/sets(?:\/|$))(?:\/[A-Za-z0-9]+(?:[-_][A-Za'
+    r'-z0-9]+)*){1,2}))')
+EMBEDDED_RE = ((YOUTUBE_RE, 'youtube'),
+               (VIMEO_RE, 'vimeo'),
+               (SPOTIFY_RE, 'spotify'),
+               (SOUNDCLOUD_RE, 'soundcloud'))
 
 
-def is_embedded_link(link):
-    return YOUTUBE_RE.match(link)
+class EmbeddedLinkParser:
+    _types = (('youtube', ('youtube.com', 'youtu.be')),
+              ('vimeo', ('vimeo.com',)),
+              ('spotify', ('spotify.com',)),
+              ('soundcloud', ('soundcloud.com',)))
+
+    def __init__(self, link):
+        self._split = None
+        self._link = link
+        if not SCHEME.match(self._link):
+            self._link = f"https://{self._link.lstrip('htps:/')}"
+        if SCHEME.match(self._link):
+            self._split = urllib.parse.urlsplit(self._link)
+            if self._split and (not self._split.netloc
+                                or not self._split.path):
+                self._split = None
+
+    @cached_property
+    def type(self):
+        for type_, domains in self._types:
+            for domain in domains:
+                if self._split.netloc.endswith(domain):
+                    return type_
+        print('no type')
+
+    @cached_property
+    def _qs(self):
+        return urllib.parse.parse_qs(self._split.query)
+
+    def qs_has(self, key):
+        return bool(self._qs.get(key))
+
+    @cached_property
+    def sub_type(self):
+        split_path = self._split.path
+        if self.type == 'youtube':
+            for path in 'watch', 'embed', 'vi_webp', 'v':
+                if split_path.startswith(f"/{path}") and self._qs.get('v'):
+                    return 'video'
+            if split_path.startswith('/playlist') and self._qs.get('list'):
+                return 'playlist'
+
+    @cached_property
+    def embedded_id(self):
+        if self.type == 'youtube' and self.sub_type == 'video':
+            return self._qs['v'][0]
+        if self.type == 'youtube' and self.sub_type == 'playlist':
+            return self._qs['list'][0]
+        if self.type == 'soundcloud' and self.sub_type == 'track':
+            return self._split.path
+        if self.type == 'soundcloud' and self.sub_type == 'playlist':
+            return
+        if self.type == 'spotify':
+            return self._split.path.strip('/').split('/')[1]
+        if self.type == 'vimeo':
+            return self._split.path.strip('/')
+
+        raise ValueError(f'no embedded id for {self._link}')
+
+    @property
+    def embedded_hash(self):
+        return digest(f'emb:{self.type}:{self.sub_type}:{self.embedded_id}',
+                      alg='sha1', out='bytes')
+
+
+@lru_cache(maxsize=10000)
+def get_embedded_link_parser(link):
+    return EmbeddedLinkParser(link)
 
 
 class ContentGenerator:
@@ -118,13 +202,13 @@ class EmbeddedContentGenerator(ContentGenerator):
         return None
 
     def generate(self):
-        yt_match = YOUTUBE_RE.match(self.article.link)
-        if yt_match:
-            logger.info('%r constructing embedded youtube content '
-                        'from article', self.article)
+        parser = EmbeddedLinkParser(self.article.link)
+        if parser:
+            logger.info('%r constructing embedded %s content '
+                        'from article', self.article, parser.type)
             try:
-                return {'type': 'youtube', 'link': yt_match.group(5)}
-            except IndexError:
+                return {'type': parser.type, 'link': parser.embedded_id}
+            except ValueError:
                 pass
         else:
             logger.warning('embedded video not recognized %r',

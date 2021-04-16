@@ -4,7 +4,7 @@ import requests
 from requests.exceptions import MissingSchema
 
 from jarr.bootstrap import conf
-from jarr.lib.content_generator import YOUTUBE_RE, is_embedded_link
+from jarr.lib.content_generator import get_embedded_link_parser
 from jarr.lib.enums import ArticleType
 from jarr.lib.filter import FiltersAction, process_filters
 from jarr.lib.url_cleaners import clean_urls, remove_utm_tags
@@ -124,19 +124,19 @@ class AbstractArticleBuilder:
             article['article_type'] = ArticleType.video
         elif content_type.startswith('audio/'):
             article['article_type'] = ArticleType.audio
-        elif is_embedded_link(article['link']):
+        elif get_embedded_link_parser(article['link']):
             article['article_type'] = ArticleType.embedded
 
     def _all_articles(self):
         yield self.article
 
     def enhance(self):
-        if is_embedded_link(self.article['link']):
+        embedded_link = get_embedded_link_parser(self.article['link'])
+        if embedded_link:
             self.article['article_type'] = ArticleType.embedded
             try:  # let's not fetch youtube page, avoid consent page redirect
-                video_id = YOUTUBE_RE.match(self.article['link']).group(5)
-                self.article['link_hash'] = self.to_hash(video_id)
-            except IndexError:
+                self.article['link_hash'] = embedded_link.embedded_hash
+            except ValueError:
                 pass
             yield from self._all_articles()
             return
