@@ -22,6 +22,12 @@ export default makeStyles((theme: Theme) =>
           maxWidth: "80%",
         }
       },
+      "& audio": {
+        width: "100%"
+      },
+      "& video": {
+        maxWidth: "100%",
+      },
       "& img": {
         maxWidth: "100%",
         height: "auto"
