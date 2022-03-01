@@ -12,7 +12,7 @@ export const jarrColors = {
   background: {
     default: "rgb(95,158,160, 0.6)"
   },
-  danger: {
+  warning: {
     main: "#F08080",
     hover: "#CD5C5C",
     contrastText: "#ffffff"

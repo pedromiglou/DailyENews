@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 import { editPanelWidth } from "../../const";
-import { jarrColors } from "../../Jarr.theme";
+import { jarrTheme } from "../../Jarr.theme";
 
 export default makeStyles((theme) =>
   createStyles({
@@ -80,15 +80,15 @@ export default makeStyles((theme) =>
       }
     },
     deletePanelBtn: {
-      color: jarrColors.danger.contrastText,
-      backgroundColor: jarrColors.danger.main,
+      color: jarrTheme.palette.warning.contrastText,
+      backgroundColor: jarrTheme.palette.warning.main,
       marginTop: 20,
       marginBottom: 20,
       [theme.breakpoints.down("sm")]: {
         marginBottom: 0,
       },
       "&:hover": {
-        backgroundColor: jarrColors.danger.hover,
+        backgroundColor: jarrTheme.palette.warning.hover,
       },
       "& svg": {
         position: "relative",

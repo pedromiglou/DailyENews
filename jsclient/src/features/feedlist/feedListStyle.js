@@ -31,7 +31,7 @@ export default makeStyles((theme) =>
       paddingBottom: 2,
     },
     catItem: {
-      paddingLeft: 30,
+      paddingLeft: 35,
       paddingRight: 10,
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 30,
@@ -47,11 +47,9 @@ export default makeStyles((theme) =>
     feedItem: {
       lineHeight: 1,
       overflow: "hidden",
-      paddingLeft: "35px !important",
       whiteSpace: "nowrap",
       [theme.breakpoints.down("sm")]: {
         paddingRight: 14,
-        paddingLeft: "40px !important",
       }
     },
     feedItemText: {

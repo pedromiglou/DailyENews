@@ -1,5 +1,5 @@
 import { makeStyles, createStyles } from "@mui/styles";
-import { feedListWidth, editPanelWidth } from "../../../const";
+import { feedListWidth } from "../../../const";
 
 export default makeStyles((theme) =>
   createStyles({
