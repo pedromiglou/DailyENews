@@ -1,16 +1,17 @@
-import { Theme } from "@mui/material/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 import { feedListWidth } from "../../const";
 
-export default makeStyles((theme: Theme) =>
+export default makeStyles((theme) =>
   createStyles({
     appBar: {
+      display: "flex",
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
     },
     appBarShift: {
+      display: "flex",
       width: `calc(100% - ${feedListWidth}px)`,
       marginLeft: feedListWidth,
       transition: theme.transitions.create(["margin", "width"], {

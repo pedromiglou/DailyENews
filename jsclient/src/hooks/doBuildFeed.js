@@ -3,7 +3,7 @@ import { apiUrl } from "../const";
 import { doRetryOnTokenExpiration } from "../authSlice";
 import { requestedBuildedFeed, loadedObjToEdit } from "../features/editpanel/slice";
 
-const doBuildFeed = (url): AppThunk => async (dispatch, getState) => {
+const doBuildFeed = (url) => async (dispatch, getState) => {
   dispatch(requestedBuildedFeed());
   const result = await doRetryOnTokenExpiration({
     method: "get",

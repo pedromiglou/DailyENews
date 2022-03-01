@@ -91,14 +91,15 @@ export default makeStyles((theme: Theme) =>
       maxWidth: "100%",
     },
     main: {
+      display: "flex",
       flexGrow: 1,
-      paddingTop: 64+ theme.spacing(2),
+      paddingTop: 64,
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginLeft: -feedListWidth,
-      marginRight: -editPanelWidth,
+      marginLeft: feedListWidth,
+      marginRight: editPanelWidth,
       maxWidth: "100%",
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 5,

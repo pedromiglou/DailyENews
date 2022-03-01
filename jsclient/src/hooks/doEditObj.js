@@ -2,7 +2,7 @@ import { apiUrl } from "../const";
 import { doRetryOnTokenExpiration } from "../authSlice";
 import doFetchFeeds from "./doFetchFeeds";
 
-const doEditObj = (objType): AppThunk => async (dispatch, getState) => {
+const doEditObj = (objType) => async (dispatch, getState) => {
   const editState = getState().edit;
   const data = {};
   editState.editedKeys.forEach((key) => {

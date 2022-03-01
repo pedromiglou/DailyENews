@@ -1,11 +1,11 @@
-import { Theme } from "@mui/material/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 
 import { feedListWidth } from "../../const";
 
-export default makeStyles((theme: Theme) =>
+export default makeStyles((theme) =>
   createStyles({
     drawer: {
+      display: "flex",
       width: feedListWidth,
       [theme.breakpoints.down("sm")]: {
         width: "auto"

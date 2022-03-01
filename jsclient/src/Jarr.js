@@ -1,13 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 
-import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/styles";
 
 import {jarrTheme, jarrLoginTheme} from "./Jarr.theme";
-import useStyles from "./Jarr.styles.js";
 import NoAuth from "./features/noauth/NoAuth";
 import TopMenu from "./features/topmenu/TopMenu";
 import FeedList from "./features/feedlist/FeedList";
@@ -18,31 +15,23 @@ function mapStateToProps(state) {
   return { isLogged: !!state.auth.token, };
 }
 
-function Jarr({ isLogged, isLeftMenuOpen }) {
-  const classes = useStyles();
+function Jarr({ isLogged }) {
+  let theme, content;
   if (!isLogged) {
-    return (
-      <BrowserRouter>
-        <ThemeProvider theme={jarrLoginTheme}>
-          <div className={classes.root}>
-            <CssBaseline />
-            <NoAuth />
-          </div>
-        </ThemeProvider>
-      </BrowserRouter>
-    );
-  }
-  return (
-    <ThemeProvider theme={jarrTheme}>
-      <div className={classes.root}>
-        <CssBaseline />
+    theme = jarrLoginTheme;
+    content = <NoAuth />;
+  } else {
+    theme = jarrTheme;
+    content = (
+      <>
         <TopMenu />
         <FeedList />
         <ClusterList />
         <EditPanel />
-      </div>
-    </ThemeProvider>
-  );
+      </>
+    );
+  }
+  return <ThemeProvider theme={theme}>{content}</ThemeProvider>;
 }
 
 Jarr.propTypes = {

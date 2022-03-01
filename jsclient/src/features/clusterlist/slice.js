@@ -68,15 +68,16 @@ const clusterSlice = createSlice({
         // dispatch from an earlier request that has been ignored
         return state;  // ignoring
       }
+      const newState = {
+          ...state, loading: false, moreLoading: false,
+          moreToFetch: action.payload.clusters.length >= pageLength
+      };
       if (action.payload.strat === "append") {
-        return { ...state, loading: false, moreLoading: false,
-                 moreToFetch: action.payload.clusters.length >= pageLength,
-                 clusters: [ ...state.clusters, ...action.payload.clusters],
-        };
+        newState.clusters = [ ...state.clusters, ...action.payload.clusters];
+      } else {
+        newState.clusters = action.payload.clusters;
       }
-      return { ...state, loading: false, moreLoading: false,
-               moreToFetch: action.payload.clusters.length >= pageLength,
-               clusters: action.payload.clusters };
+      return newState;
     },
     requestedCluster: (state, action) => ({
       ...state,

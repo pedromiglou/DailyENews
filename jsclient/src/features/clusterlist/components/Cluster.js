@@ -112,19 +112,18 @@ const Cluster = ({ index, cluster, loadedCluster,
   if(!doShow) { return null; }
   let content;
   if(!splitedMode && expanded) {
+    let innerContent;
     if (showContent) {
-      content = <Articles />;
+      innerContent = <Articles />;
     } else {
-      content = <div className={classes.loadingWrap}><CircularProgress /></div>;
+      innerContent = <div className={classes.loadingWrap}><CircularProgress /></div>;
     }
     content = (
-      <AccordionDetails className={classes.content}
-                             key={`cl-${cluster.id}`}>
-        {content}
+      <AccordionDetails className={classes.content} key={`cl-${cluster.id}`}>
+        {innerContent}
       </AccordionDetails>
     );
   }
-
   return (
       <Accordion
         expanded={expanded}
@@ -160,7 +159,9 @@ const Cluster = ({ index, cluster, loadedCluster,
               }
              {cluster["main_feed_title"]}
             </Link>
-            <span className={classes.clusterDate}>{moment(cluster["main_date"]).fromNow()}</span>
+            <span className={classes.clusterDate}>
+              {moment(cluster["main_date"]).fromNow()}
+            </span>
           </div>
           <div>
             <Checkbox checked={cluster.read} key={`c${cluster.id}r`}

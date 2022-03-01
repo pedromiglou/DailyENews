@@ -3,7 +3,7 @@ import { doRetryOnTokenExpiration } from "../authSlice";
 import doFetchUnreadCount from "./doFetchUnreadCount";
 import { apiUrl, pageLength } from "../const";
 
-const doListClusters = (filters): AppThunk => async (dispatch, getState) => {
+const doListClusters = (filters) => async (dispatch, getState) => {
   dispatch(requestedClustersList({ filters }));
   const state = getState();
   const requestedFilter = state.clusters.requestedFilter;

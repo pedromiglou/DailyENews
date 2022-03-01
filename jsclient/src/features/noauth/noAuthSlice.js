@@ -42,10 +42,7 @@ export const { requestSent, responseRecieved,
 
 export default noAuthSlice.reducer;
 
-export const doLogin = (
-  login: string,
-  password: string
-): AppThunk => async (dispatch) => {
+export const doLogin = ( login, password ) => async (dispatch) => {
   dispatch(requestSent());
   dispatch(attemptLogin({ login, password }));
   try {
@@ -62,11 +59,7 @@ export const doLogin = (
   }
 };
 
-export const doSignUp = (
-  login: string,
-  password: string,
-  email: string,
-): AppThunk => async (dispatch) => {
+export const doSignUp = ( login, password, email ) => async (dispatch) => {
   dispatch(requestSent());
   try {
     await axios({
@@ -81,10 +74,7 @@ export const doSignUp = (
   }
 };
 
-export const doInitRecovery = (
-  login: string,
-  email: string,
-): AppThunk => async (dispatch) => {
+export const doInitRecovery = ( login, email ) => async (dispatch) => {
   dispatch(requestSent());
   try {
     const result = await axios({
@@ -98,12 +88,7 @@ export const doInitRecovery = (
   }
 };
 
-export const doRecovery = (
-  login: string,
-  email: string,
-  token: string,
-  password: string
-): AppThunk => async (dispatch) => {
+export const doRecovery = ( login, email, token, password ) => async (dispatch) => {
   dispatch(requestSent());
   try {
     await axios({
@@ -118,7 +103,7 @@ export const doRecovery = (
   }
 };
 
-export const doValidOAuth = (code): AppThunk => async (dispatch) => {
+export const doValidOAuth = (code) => async (dispatch) => {
   try {
     dispatch(requestSent());
     const result = await axios({

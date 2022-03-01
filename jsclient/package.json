@@ -9,7 +9,7 @@
     "@mui/material": ">=5",
     "@mui/styles": ">=5",
     "@mui/system": ">=5",
-    "@reduxjs/toolkit": "^1.1.0",
+    "@reduxjs/toolkit": "^1.8.0",
     "axios": "^0.26.0",
     "moment": "2.29.1",
     "node-notifier": "10.0.1",
@@ -21,7 +21,7 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "react-window": "^1.8.5",
-    "redux": "^4.0.5",
+    "redux": "^4.1.2",
     "ssri": "^8.0.1",
     "thunk": "^0.0.1",
     "typescript": "^3.8.3"
@@ -33,10 +33,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-        "no-anonymous-default-export": "off"
-    }
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

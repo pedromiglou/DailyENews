@@ -1,11 +1,11 @@
-import { Theme } from "@mui/material/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 import { editPanelWidth } from "../../const";
 import { jarrColors } from "../../Jarr.theme";
 
-export default makeStyles((theme: Theme) =>
+export default makeStyles((theme) =>
   createStyles({
     editPanel: {
+      display: "flex",
       maxWidth: editPanelWidth,
       [theme.breakpoints.down("sm")]: {
         width: "auto"

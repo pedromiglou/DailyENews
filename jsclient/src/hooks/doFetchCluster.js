@@ -2,7 +2,7 @@ import { requestedCluster, retrievedCluster } from "../features/clusterlist/slic
 import { doRetryOnTokenExpiration } from "../authSlice";
 import { apiUrl } from "../const";
 
-const doFetchCluster = (clusterId): AppThunk => async (dispatch, getState) => {
+const doFetchCluster = (clusterId) => async (dispatch, getState) => {
   dispatch(requestedCluster({ clusterId }));
   const result = await doRetryOnTokenExpiration({
     method: "get", url: `${apiUrl}/cluster/${clusterId}`,

@@ -1,7 +1,6 @@
-import { Theme } from "@mui/material/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 
-export default makeStyles((theme: Theme) =>
+export default makeStyles((theme) =>
   createStyles({
     welcome: {
       color: "rgba(0, 0, 0, 0.6)",
@@ -13,6 +12,7 @@ export default makeStyles((theme: Theme) =>
       right: 10
     },
     loginContainer: {
+      display: "flex",
       alignItems: "center",
       background: "#ffffff",
       borderRadius: "1px",

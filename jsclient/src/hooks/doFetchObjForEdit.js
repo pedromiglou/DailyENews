@@ -2,7 +2,7 @@ import { openPanel, loadedObjToEdit, } from "../features/editpanel/slice";
 import { doRetryOnTokenExpiration } from "../authSlice";
 import { apiUrl } from "../const";
 
-const doFetchObjForEdit = (type, id): AppThunk => async (dispatch, getState) => {
+const doFetchObjForEdit = (type, id) => async (dispatch, getState) => {
   dispatch(openPanel({ job: "load", objId: id, objType: type, isLoading: true }));
   const url = `${apiUrl}/${type}${id ? `/${id}` : ""}`;
   const result = await doRetryOnTokenExpiration({
