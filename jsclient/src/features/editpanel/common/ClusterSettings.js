@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 // meterial components
-import ExpansionPanel from "@mui/material/ExpansionPanel";
-import ExpansionPanelSummary from "@mui/material/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@mui/material/ExpansionPanelDetails";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -41,15 +41,15 @@ function ClusterSettings({ level, clusterOptions, edit }) {
   const classes = editPanelStyle();
 
   return (
-    <ExpansionPanel className={classes.editPanelCluster} >
-      <ExpansionPanelSummary
+    <Accordion className={classes.editPanelCluster} >
+      <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
         <Typography className={classes.heading}>Cluster Settings</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.editPanelClusterSettings}>
+      </AccordionSummary>
+      <AccordionDetails className={classes.editPanelClusterSettings}>
         {Object.entries(clusteringConfOptions)
                .map(([opt, label]) => (
           <FormControl key={opt} className={classes.editPanelClusterCtrl}>
@@ -64,8 +64,8 @@ function ClusterSettings({ level, clusterOptions, edit }) {
             </Select>
           </FormControl>
         ))}
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 

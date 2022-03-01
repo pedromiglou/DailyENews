@@ -6,9 +6,9 @@ import Fab from "@mui/material/Fab";
 import Alert from "@mui/lab/Alert";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import ExpansionPanel from "@mui/material/ExpansionPanel";
-import ExpansionPanelSummary from "@mui/material/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@mui/material/ExpansionPanelDetails";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
 // material icons
 import HelpIcon from "@mui/icons-material/Help";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -47,15 +47,15 @@ const FilterSettings = ({ filters, add }) => {
     );
   }
   return (
-    <ExpansionPanel className={classes.editPanelCluster} >
-      <ExpansionPanelSummary
+    <Accordion className={classes.editPanelCluster} >
+      <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
         <Typography className={classes.heading}>Filters Settings</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.editPanelClusterSettings}>
+      </AccordionSummary>
+      <AccordionDetails className={classes.editPanelClusterSettings}>
         <IconButton onClick={() => setShowHelp(!showHelp)}
             className={classes.showHelpButton}>
           <HelpIcon />
@@ -73,8 +73,8 @@ const FilterSettings = ({ filters, add }) => {
             <PlusIcon />
           </Fab>
         </div>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

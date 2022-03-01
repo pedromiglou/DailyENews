@@ -8,10 +8,10 @@ import { createSelector } from "reselect";
 import Link from "@mui/material/Link";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
-import ExpansionPanel from "@mui/material/ExpansionPanel";
+import Accordion from "@mui/material/Accordion";
 import CircularProgress from "@mui/material/CircularProgress";
-import ExpansionPanelSummary from "@mui/material/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@mui/material/ExpansionPanelDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
 // material ui icons
 import LikedIcon from "@mui/icons-material/Star";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -118,15 +118,15 @@ const Cluster = ({ index, cluster, loadedCluster,
       content = <div className={classes.loadingWrap}><CircularProgress /></div>;
     }
     content = (
-      <ExpansionPanelDetails className={classes.content}
+      <AccordionDetails className={classes.content}
                              key={`cl-${cluster.id}`}>
         {content}
-      </ExpansionPanelDetails>
+      </AccordionDetails>
     );
   }
 
   return (
-      <ExpansionPanel
+      <Accordion
         expanded={expanded}
         elevation={expanded ? 10: 2}
         TransitionProps={{ unmountOnExit: true }}
@@ -138,7 +138,7 @@ const Cluster = ({ index, cluster, loadedCluster,
         onChange={(e) => handleClickOnPanel(e, cluster,
                                             unreadOnClose, expanded)}
       >
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -183,9 +183,9 @@ const Cluster = ({ index, cluster, loadedCluster,
              {cluster["main_title"]}
             </Typography>
           </div>
-        </ExpansionPanelSummary>
+        </AccordionSummary>
         {content}
-      </ExpansionPanel>
+      </Accordion>
     );
 };
 

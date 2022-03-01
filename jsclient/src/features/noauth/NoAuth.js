@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 // material ui components
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
@@ -123,7 +123,7 @@ function NoAuth({ isLoading, noToken, savedLogin, savedPassword, recovery, hidde
 
   return (
     <Grid container className={classes.loginContainer} direction="column" >
-      <Switch>
+      <Routes>
         <Route path="/recovery/:login/:email/:token">
           <PasswordRecovery />
           {recovery === "NOT FOUND" ? <Grid item>Could not find your user</Grid> : null}
@@ -137,7 +137,7 @@ function NoAuth({ isLoading, noToken, savedLogin, savedPassword, recovery, hidde
           {form}
           {footer}
         </Route>
-      </Switch>
+      </Routes>
     </Grid>
   );
 }
