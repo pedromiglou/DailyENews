@@ -4,7 +4,6 @@ import { feedListWidth } from "../../const";
 export default makeStyles((theme) =>
   createStyles({
     appBar: {
-      display: "flex",
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -13,7 +12,7 @@ export default makeStyles((theme) =>
     appBarShift: {
       display: "flex",
       width: `calc(100% - ${feedListWidth}px)`,
-      marginLeft: feedListWidth,
+      paddingLeft: feedListWidth,
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,

@@ -1,8 +1,7 @@
-import { Theme } from "@mui/material/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 import { feedListWidth, editPanelWidth } from "../../../const";
 
-export default makeStyles((theme: Theme) =>
+export default makeStyles((theme) =>
   createStyles({
     tabs: {
       maxWidth: "100%",
@@ -98,9 +97,6 @@ export default makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginLeft: feedListWidth,
-      marginRight: editPanelWidth,
-      maxWidth: "100%",
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 5,
         paddingRight: 5,
@@ -112,11 +108,10 @@ export default makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0,
+      marginLeft: feedListWidth,
       maxWidth: `calc(100% - ${feedListWidth}px)`,
     },
     mainSplitted: {
-      display: "flex",
       justifyContent: "space-between",
     },
     clusterDate: {
@@ -128,7 +123,6 @@ export default makeStyles((theme: Theme) =>
       opacity: .9,
     },
     clusterList: {
-      display: "block",
       width: "45%",
     },
     clusterListInner: {

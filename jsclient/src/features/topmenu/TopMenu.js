@@ -129,20 +129,21 @@ function TopMenu(props) {
               </Tooltip>);
     }
   );
-
-  const showFeedList = (
-    <Tooltip title="Show feed list">
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        onClick={props.toggleFeedList}
-        edge="start"
-        className={clsx(classes.menuButton,
-                        props.isMenuButtonHidden && classes.hide)}>
-        <MenuIcon />
-      </IconButton>
-    </Tooltip>
-  );
+  let showFeedList;
+  if (!props.isMenuButtonHidden) {
+    showFeedList = (
+      <Tooltip title="Show feed list">
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={props.toggleFeedList}
+          edge="start"
+          className={classes.menuButton}>
+          <MenuIcon />
+        </IconButton>
+      </Tooltip>
+    );
+  }
 
   let menu;  // constructing menu depending on the display size
   if (burgered) {
