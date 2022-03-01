@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 // material ui components
 import Fab from "@mui/material/Fab";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Accordion from "@mui/material/Accordion";

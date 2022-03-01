@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 // material components
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";

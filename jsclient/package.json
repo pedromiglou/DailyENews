@@ -6,7 +6,6 @@
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": ">=5",
-    "@mui/lab": "^5",
     "@mui/material": ">=5",
     "@mui/styles": ">=5",
     "@mui/system": ">=5",

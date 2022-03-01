@@ -9,7 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
 import AddIcon from "@mui/icons-material/Add";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 // jarr
 import Cluster from "./components/Cluster";
 import SelectedObjCard from "./components/SelectedObjCard";

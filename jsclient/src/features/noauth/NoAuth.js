@@ -55,6 +55,7 @@ function NoAuth({ isLoading, noToken, savedLogin, savedPassword, recovery, hidde
 
   let form;
   let header;
+  let recoveryContent;
   let footer;
   if (formType === "login") {
     if (isLoading) {
@@ -120,23 +121,19 @@ function NoAuth({ isLoading, noToken, savedLogin, savedPassword, recovery, hidde
       );
     }
   }
+  if (recovery === "NOT FOUND") {
+    recoveryContent = <Grid item>Could not find your user</Grid>;
+  } else if (recovery === "FORBIDDEN") {
+    recoveryContent = <Grid item>Password NOT updated, token is expired. Please generate a new one.</Grid>;
+  }
 
   return (
     <Grid container className={classes.loginContainer} direction="column" >
       <Routes>
-        <Route path="/recovery/:login/:email/:token">
-          <PasswordRecovery />
-          {recovery === "NOT FOUND" ? <Grid item>Could not find your user</Grid> : null}
-          {recovery === "FORBIDDEN" ? <Grid item>Password NOT updated, token is expired. Please generate a new one.</Grid>: null}
-        </Route>
-        <Route path="/oauth/:provider">
-          <OAuthLogin />
-        </Route>
-        <Route path="/">
-          {header}
-          {form}
-          {footer}
-        </Route>
+        <Route path="/recovery/:login/:email/:token"
+               element={<> <PasswordRecovery /> {recoveryContent} </>} />
+        <Route path="/oauth/:provider" element={ <OAuthLogin /> } />
+        <Route path="/" element={ <> {header} {form} {footer} </> } />
       </Routes>
     </Grid>
   );

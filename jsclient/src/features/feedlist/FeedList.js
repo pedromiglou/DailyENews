@@ -19,7 +19,7 @@ import UnFoldAllCategoriesIcon from "@mui/icons-material/UnfoldMore";
 import SearchIcon from "@mui/icons-material/Search";
 import Divider from "@mui/material/Divider";
 import Close from "@mui/icons-material/Close";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 // jarrs
 import feedListStyle from "./feedListStyle";
 import FeedRow from "./FeedRow";
