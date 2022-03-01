@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/styles";
 
-import {jarrTheme, jarrLoginTheme} from "./Jarr.theme"; 
+import {jarrTheme, jarrLoginTheme} from "./Jarr.theme";
 import useStyles from "./Jarr.styles.js";
 import NoAuth from "./features/noauth/NoAuth";
 import TopMenu from "./features/topmenu/TopMenu";
@@ -21,7 +21,7 @@ function mapStateToProps(state) {
 function Jarr({ isLogged, isLeftMenuOpen }) {
   const classes = useStyles();
   if (!isLogged) {
-    return (      
+    return (
       <BrowserRouter>
         <ThemeProvider theme={jarrLoginTheme}>
           <div className={classes.root}>

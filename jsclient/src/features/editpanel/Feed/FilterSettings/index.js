@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 // material ui components
-import Fab from "@material-ui/core/Fab";
-import Alert from "@material-ui/lab/Alert";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Fab from "@mui/material/Fab";
+import Alert from "@mui/lab/Alert";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import ExpansionPanel from "@mui/material/ExpansionPanel";
+import ExpansionPanelSummary from "@mui/material/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@mui/material/ExpansionPanelDetails";
 // material icons
-import HelpIcon from "@material-ui/icons/Help";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import PlusIcon from "@material-ui/icons/Add";
+import HelpIcon from "@mui/icons-material/Help";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import PlusIcon from "@mui/icons-material/Add";
 // jarr
 import editPanelStyle from "../../editPanelStyle";
 import style from "./style";

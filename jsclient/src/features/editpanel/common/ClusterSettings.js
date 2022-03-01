@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 // meterial components
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
-import Select from "@material-ui/core/Select";
+import ExpansionPanel from "@mui/material/ExpansionPanel";
+import ExpansionPanelSummary from "@mui/material/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@mui/material/ExpansionPanelDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import Select from "@mui/material/Select";
 
 import editPanelStyle from "../editPanelStyle";
 import { editLoadedObj } from "../slice";
