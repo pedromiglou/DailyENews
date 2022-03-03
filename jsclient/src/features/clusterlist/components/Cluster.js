@@ -139,8 +139,6 @@ const Cluster = ({ index, cluster, loadedCluster,
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
           key={`cs-${cluster.id}`}
           className={classes.summary}
         >

@@ -35,11 +35,9 @@ export default makeStyles((theme) =>
     },
     summary: {
       padding: 0,
-      paddingRight: 15,
       margin: 0,
       "& .MuiAccordionSummary-content": {
         flexDirection: "column",
-        padding: "6px 0 6px 10px",
         margin: 0,
         maxWidth: "100%",
         overflow: "hidden",
@@ -59,7 +57,6 @@ export default makeStyles((theme) =>
         overflow: "hidden",
         position: "relative",
         top: 5,
-        marginBottom: 7
       },
       "& img": {
         position: "relative",

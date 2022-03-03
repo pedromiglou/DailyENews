@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { ThemeProvider } from "@mui/styles";
 
-import {jarrTheme, jarrLoginTheme} from "./Jarr.theme";
+import {jarrTheme } from "./Jarr.theme";
 import NoAuth from "./features/noauth/NoAuth";
 import TopMenu from "./features/topmenu/TopMenu";
 import FeedList from "./features/feedlist/FeedList";
@@ -16,22 +16,15 @@ function mapStateToProps(state) {
 }
 
 function Jarr({ isLogged }) {
-  let theme, content;
   if (!isLogged) {
-    theme = jarrLoginTheme;
-    content = <NoAuth />;
-  } else {
-    theme = jarrTheme;
-    content = (
-      <>
-        <TopMenu />
-        <FeedList />
-        <ClusterList />
-        <EditPanel />
-      </>
-    );
+    return <ThemeProvider theme={jarrTheme}><NoAuth /></ThemeProvider>;
   }
-  return <ThemeProvider theme={theme}>{content}</ThemeProvider>;
+  return (<ThemeProvider theme={jarrTheme}>
+            <TopMenu />
+            <FeedList />
+            <ClusterList />
+            <EditPanel />
+          </ThemeProvider>);
 }
 
 Jarr.propTypes = {
