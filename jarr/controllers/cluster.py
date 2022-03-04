@@ -36,7 +36,8 @@ class ClusterController(AbstractController):
                     self.user_id, art_count)
         WORKER_BATCH.labels(worker_type='clusterizer').observe(art_count)
         clusterizer = Clusterizer(self.user_id)
-        for article in actrl.read(cluster_id=None):
+        articles = list(actrl.read(cluster_id=None))
+        for article in articles:
             filter_result = process_filters(article.feed.filters,
                                             {'tags': article.tags,
                                              'title': article.title,
