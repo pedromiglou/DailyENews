@@ -1,5 +1,6 @@
 FROM jarr-base:latest
 
+COPY jarr/metaconf.yml /etc/jarr/metaconf.yml
 COPY example_conf/logging.ini /etc/jarr/logging.ini
 COPY example_conf/gunicorn.py /etc/jarr/gunicorn.py
 EXPOSE 8000

@@ -115,7 +115,7 @@ parameters:
   - admin_mail: {'default': ''}
   - server_name: {'default': '', 'type': 'str'}
 - db:
-  - pg_uri: {'default': 'postgresql://postgresql/jarr'}
+  - pg_uri: {'default': 'postgresql://postgres:password@localhost:5432/jarr'}
   - redis:
     - host: {'default': 'redis'}
     - db: {'default': 1}
@@ -127,9 +127,9 @@ parameters:
     - port: {'default': 6379}
     - password: {'default': ''}
 - celery:
-  - broker: {'default': 'amqp://rabbitmq//'}
-  - backend: {'default': 'redis://redis:6379/0'}
-  - broker_url: {'default': 'amqp://rabbitmq//'}
+  - broker: {'default': 'amqp://localhost:5672//'}
+  - backend: {'default': 'redis://localhost:6379/0'}
+  - broker_url: {'default': 'amqp://localhost:5672//'}
   - task_serializer: {'default': 'json'}
   - result_serializer: {'default': 'json'}
   - timezone: {'default': 'Europe/Paris'}

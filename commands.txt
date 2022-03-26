@@ -1,0 +1,16 @@
+make build-base
+
+docker run --network=host --name rabbitmq -d --restart always rabbitmq
+
+docker run --network=host --name redis -d --restart always redis
+
+docker run --network=host --name postgres -d -e POSTGRES_PASSWORD=password -e POSTGRES_HOST_AUTH_METHOD=trust -v /postgres-data:/var/lib/postgresql/data --restart always postgres:13
+
+make build-server
+docker run --network=host --name jarr-server -d --restart always -v example_conf:/etc/jarr jarr-server
+
+make build-front
+docker run --network=host --name jarr-front -d --restart always -v example_conf:/etc/jarr jarr-front
+
+make build-worker
+docker run --network=host --name jarr-worker -d --restart always -v example_conf:/etc/jarr jarr-worker
