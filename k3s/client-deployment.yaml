@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  #namespace: gic2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: jarr-front:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          resources: {}
+      #restartPolicy: Always
+      #affinity:
+      #  podAntiAffinity:
+      #    requiredDuringSchedulingIgnoredDuringExecution:
+      #    - topologyKey: kubernetes.io/hostname
+      #      labelSelector:
+      #        matchLabels:
+      #          app: app     
