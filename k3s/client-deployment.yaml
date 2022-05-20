@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: registry.deti:5000/jarr-front:latest
+          image: registry.deti:5000/gic2/client
           ports:
             - containerPort: 80
           resources: {}

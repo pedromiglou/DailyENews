@@ -45,11 +45,14 @@ build-worker:
 		--file Dockerfiles/worker \
 		-t jarr-worker
 
-build-front:
+build-client:
 	docker build --cache-from=jarr . \
-		--file Dockerfiles/front -t jarr-front \
+		--file Dockerfiles/client -t registry.deti:5000/gic2/client \
 		--build-arg PUBLIC_URL=$(PUBLIC_URL) \
 		--build-arg REACT_APP_API_URL=$(REACT_APP_API_URL)
+
+push-client:
+	docker push registry.deti:5000/gic2/client
 
 start-env:
 	$(COMPOSE) up -d
@@ -62,7 +65,7 @@ run-worker: export JARR_CONFIG = $(CONF_FILE)
 run-worker:
 	$(RUN) celery --app ep_celery.celery_app worker -Q $(QUEUE) --hostname "$(QUEUE)@%h"
 
-run-front:
+run-client:
 	cd jsclient/; yarn start
 
 db-bootstrap-user:
