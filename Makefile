@@ -46,8 +46,7 @@ build-worker:
 		-t jarr-worker
 
 build-client:
-	docker build --cache-from=jarr . \
-		--file Dockerfiles/client -t registry.deti:5000/gic2/client \
+	docker build . --file Dockerfiles/client -t registry.deti:5000/gic2/client \
 		--build-arg PUBLIC_URL=$(PUBLIC_URL) \
 		--build-arg REACT_APP_API_URL=$(REACT_APP_API_URL)
 

@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: client
-          image: registry.deti:5000/gic2/client
+          image: registry.deti:5000/gic2/client:latest
+          #imagePullPolicy: Never
           ports:
             - containerPort: 80
           resources: {}
