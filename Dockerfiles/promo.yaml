@@ -23,7 +23,7 @@ spec:
           resources: {}
       restartPolicy: Always
 
-# Create Service for APP
+# Create Service for Nginx
 ---
 apiVersion: v1
 kind: Service
