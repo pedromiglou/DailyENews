@@ -1,1 +1,30 @@
-#TODO
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  namespace: gic2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: registry.deti:5000/gic2/postgres
+          ports:
+            - containerPort: 5432
+          resources: {}
+      #restartPolicy: Always
+      #affinity:
+      #  podAntiAffinity:
+      #    requiredDuringSchedulingIgnoredDuringExecution:
+      #    - topologyKey: kubernetes.io/hostname
+      #      labelSelector:
+      #        matchLabels:
+      #          app: app     

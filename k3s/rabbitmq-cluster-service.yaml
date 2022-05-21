@@ -1,1 +1,11 @@
-#TODO
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-cluster-service
+  namespace: gic2
+spec:
+  ports:
+    - port: 5672
+      targetPort: 5672
+  selector: 
+    app: rabbitmq

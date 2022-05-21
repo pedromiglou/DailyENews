@@ -1,1 +1,11 @@
-#TODO
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-cluster-service
+  namespace: gic2
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector: 
+    app: client

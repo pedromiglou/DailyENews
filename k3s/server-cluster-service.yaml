@@ -1,1 +1,11 @@
-#TODO
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-cluster-service
+  namespace: gic2
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector: 
+    app: server

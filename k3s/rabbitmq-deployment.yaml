@@ -1,1 +1,30 @@
-#TODO
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  namespace: gic2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: registry.deti:5000/gic2/rabbitmq
+          ports:
+            - containerPort: 5672
+          resources: {}
+      #restartPolicy: Always
+      #affinity:
+      #  podAntiAffinity:
+      #    requiredDuringSchedulingIgnoredDuringExecution:
+      #    - topologyKey: kubernetes.io/hostname
+      #      labelSelector:
+      #        matchLabels:
+      #          app: app     
