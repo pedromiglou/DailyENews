@@ -1,0 +1,6 @@
+FROM nginx:alpine
+
+EXPOSE 80
+
+COPY promo.nginx.conf /etc/nginx/conf.d/
+COPY ../promo/. /usr/share/nginx/html/
