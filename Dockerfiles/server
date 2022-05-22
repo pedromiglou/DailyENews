@@ -1,4 +1,4 @@
-FROM jarr-base:latest
+FROM pythonbase:latest
 
 COPY jarr/metaconf.yml /etc/jarr/metaconf.yml
 COPY example_conf/logging.ini /etc/jarr/logging.ini

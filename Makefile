@@ -9,11 +9,60 @@ RUN = FLASK_APP=wsgi PIPENV_IGNORE_VIRTUALENVS=1 pipenv run
 COMPOSE = $(RUN) docker-compose --project-name jarr --file $(COMPOSE_FILE)
 TEST = tests/
 DB_NAME ?= jarr
-PUBLIC_URL ?=
-REACT_APP_API_URL ?=
+PUBLIC_URL ?= /app
+REACT_APP_API_URL ?= /api
 QUEUE ?= jarr,jarr-crawling,jarr-clustering
 DB_CONTAINER_NAME = postgres
 QU_CONTAINER_NAME = rabbitmq
+
+build-base:
+	docker build . --file Dockerfiles/pythonbase -t pythonbase
+
+build-server:
+	docker build . --file Dockerfiles/server -t registry.deti:5000/gic2/server
+
+push-server:
+	docker push registry.deti:5000/gic2/server
+
+build-worker:
+	docker build . --file Dockerfiles/worker -t registry.deti:5000/gic2/worker
+
+push-worker:
+	docker push registry.deti:5000/gic2/worker
+
+build-client:
+	docker build . --file Dockerfiles/client -t registry.deti:5000/gic2/client \
+		--build-arg PUBLIC_URL=$(PUBLIC_URL) \
+		--build-arg REACT_APP_API_URL=$(REACT_APP_API_URL)
+
+push-client:
+	docker push registry.deti:5000/gic2/client
+
+build-promo:
+	docker build . --file Dockerfiles/promo -t registry.deti:5000/gic2/promo
+
+push-promo:
+	docker push registry.deti:5000/gic2/promo
+
+tag-postgres:
+	docker tag postgres:13 registry.deti:5000/gic2/postgres
+
+push-postgres:
+	docker push registry.deti:5000/gic2/postgres
+
+tag-redis:
+	docker tag redis registry.deti:5000/gic2/redis
+
+push-redis:
+	docker push registry.deti:5000/gic2/redis
+
+tag-rabbitmq:
+	docker tag rabbitmq registry.deti:5000/gic2/rabbitmq
+
+push-rabbitmq:
+	docker push registry.deti:5000/gic2/rabbitmq
+
+########## original commands below ##########
 
 install:
 	pipenv sync --dev
@@ -29,29 +78,6 @@ lint: pep8 mypy
 test: export JARR_CONFIG = example_conf/jarr.test.json
 test:
 	$(RUN) nosetests $(TEST) -vv --with-coverage --cover-package=jarr
-
-build-base:
-	docker build --cache-from=jarr . \
-		--file Dockerfiles/pythonbase \
-		-t jarr-base
-
-build-server:
-	docker build --cache-from=jarr . \
-		--file Dockerfiles/server \
-		-t jarr-server
-
-build-worker:
-	docker build --cache-from=jarr . \
-		--file Dockerfiles/worker \
-		-t jarr-worker
-
-build-client:
-	docker build . --file Dockerfiles/client -t registry.deti:5000/gic2/client \
-		--build-arg PUBLIC_URL=$(PUBLIC_URL) \
-		--build-arg REACT_APP_API_URL=$(REACT_APP_API_URL)
-
-push-client:
-	docker push registry.deti:5000/gic2/client
 
 start-env:
 	$(COMPOSE) up -d

@@ -1,4 +1,4 @@
-FROM jarr-base:latest
+FROM pythonbase:latest
 
 COPY jarr/metaconf.yml /etc/jarr/metaconf.yml
 EXPOSE 8001

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: promo-deployment
+  namespace: gic2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: promo
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: promo
+    spec:
+      containers:
+        - name: promo
+          image: registry.deti:5000/gic2/promo:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always

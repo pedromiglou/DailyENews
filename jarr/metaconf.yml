@@ -115,21 +115,21 @@ parameters:
   - admin_mail: {'default': ''}
   - server_name: {'default': '', 'type': 'str'}
 - db:
-  - pg_uri: {'default': 'postgresql://postgres:password@localhost:5432/jarr'}
+  - pg_uri: {'default': 'postgresql://postgres:postgres@postgres-cluster-service:5432/jarr'}
   - redis:
-    - host: {'default': 'redis'}
+    - host: {'default': 'redis-cluster-service'}
     - db: {'default': 1}
     - port: {'default': 6379}
     - password: {'default': ''}
   - metrics:
-    - host: {'default': 'redis'}
+    - host: {'default': 'redis-cluster-service'}
     - db: {'default': 2}
     - port: {'default': 6379}
     - password: {'default': ''}
 - celery:
-  - broker: {'default': 'amqp://localhost:5672//'}
-  - backend: {'default': 'redis://localhost:6379/0'}
-  - broker_url: {'default': 'amqp://localhost:5672//'}
+  - broker: {'default': 'amqp://rabbitmq-cluster-service:5672//'}
+  - backend: {'default': 'redis://redis-cluster-service:6379/0'}
+  - broker_url: {'default': 'amqp://rabbitmq-cluster-service:5672//'}
   - task_serializer: {'default': 'json'}
   - result_serializer: {'default': 'json'}
   - timezone: {'default': 'Europe/Paris'}

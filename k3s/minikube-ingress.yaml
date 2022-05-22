@@ -15,6 +15,20 @@ spec:
             pathType: Prefix
             backend:
               service:
+                name: promo-cluster-service
+                port:
+                  number: 80
+          - path: /app/?(.*)
+            pathType: Prefix
+            backend:
+              service:
                 name: client-cluster-service
                 port:
                   number: 80
+          - path: /api/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: server-cluster-service
+                port:
+                  number: 8000
