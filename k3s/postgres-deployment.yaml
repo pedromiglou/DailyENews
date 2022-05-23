@@ -23,10 +23,16 @@ spec:
           env:
             - name: POSTGRES_PASSWORD
               value: "postgres"
-            - name: POSTGRES_HOST_AUTH_METHOD
-              value: "trust"
           resources: {}
+          volumeMounts:
+            - name: postgres-pvc
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
       #restartPolicy: Always
+      volumes:
+        - name: postgres-pvc
+          persistentVolumeClaim:
+            claimName: postgres-pvc
       #affinity:
       #  podAntiAffinity:
       #    requiredDuringSchedulingIgnoredDuringExecution:
