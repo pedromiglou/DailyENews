@@ -17,12 +17,14 @@ spec:
       containers:
         - name: postgres
           image: registry.deti:5000/gic2/postgres
-          imagePullPolicy: Never
+          #imagePullPolicy: Never
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_PASSWORD
               value: "postgres"
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: "trust"
           resources: {}
       #restartPolicy: Always
       #affinity:

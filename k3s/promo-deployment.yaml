@@ -17,7 +17,7 @@ spec:
       containers:
         - name: promo
           image: registry.deti:5000/gic2/promo:latest
-          imagePullPolicy: Never
+          #imagePullPolicy: Never
           ports:
             - containerPort: 80
           resources: {}

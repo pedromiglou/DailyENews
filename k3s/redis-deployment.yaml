@@ -17,7 +17,7 @@ spec:
       containers:
         - name: redis
           image: registry.deti:5000/gic2/redis
-          imagePullPolicy: Never
+          #imagePullPolicy: Never
           ports:
             - containerPort: 6379
           resources: {}

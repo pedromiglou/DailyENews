@@ -17,7 +17,7 @@ spec:
       containers:
         - name: worker
           image: registry.deti:5000/gic2/worker
-          imagePullPolicy: Never
+          #imagePullPolicy: Never
           ports:
             - containerPort: 8001
           resources: {}

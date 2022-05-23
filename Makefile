@@ -9,8 +9,8 @@ RUN = FLASK_APP=wsgi PIPENV_IGNORE_VIRTUALENVS=1 pipenv run
 COMPOSE = $(RUN) docker-compose --project-name jarr --file $(COMPOSE_FILE)
 TEST = tests/
 DB_NAME ?= jarr
-PUBLIC_URL ?= /app
-REACT_APP_API_URL ?= /api
+PUBLIC_URL ?= /
+REACT_APP_API_URL ?= http://api-gic2.k3s
 QUEUE ?= jarr,jarr-crawling,jarr-clustering
 DB_CONTAINER_NAME = postgres
 QU_CONTAINER_NAME = rabbitmq

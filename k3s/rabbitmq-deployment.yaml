@@ -17,7 +17,7 @@ spec:
       containers:
         - name: rabbitmq
           image: registry.deti:5000/gic2/rabbitmq
-          imagePullPolicy: Never
+          #imagePullPolicy: Never
           ports:
             - containerPort: 5672
           resources: {}
