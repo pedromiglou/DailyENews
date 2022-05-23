@@ -115,7 +115,7 @@ parameters:
   - admin_mail: {'default': ''}
   - server_name: {'default': '', 'type': 'str'}
 - db:
-  - pg_uri: {'default': 'postgresql+psycopg2://postgres:postgres@postgres-cluster-service/jarr'}
+  - pg_uri: {'default': 'postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@postgres-cluster-service/jarr'}
   - redis:
     - host: {'default': 'redis-cluster-service'}
     - db: {'default': 1}

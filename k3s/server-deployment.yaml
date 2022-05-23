@@ -20,6 +20,12 @@ spec:
           #imagePullPolicy: Never
           ports:
             - containerPort: 8000
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gic2-secret
+                  key: password
           resources: {}
       #restartPolicy: Always
       #affinity:

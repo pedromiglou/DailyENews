@@ -22,7 +22,12 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_PASSWORD
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: gic2-secret
+                  key: password
+            - name: POSTGRES_DB
+              value: "jarr"
           resources: {}
           volumeMounts:
             - name: postgres-pvc

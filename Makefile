@@ -62,6 +62,9 @@ tag-rabbitmq:
 push-rabbitmq:
 	docker push registry.deti:5000/gic2/rabbitmq
 
+set-password-secret:
+	kubectl create secret generic gic2-secret -n gic2 --from-literal password=postgres
+
 ########## original commands below ##########
 
 install:

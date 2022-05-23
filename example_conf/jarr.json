@@ -8,7 +8,6 @@
         "level": 10
     },
     "db": {
-        "pg_uri": "postgresql+psycopg2://postgres:postgres@postgres-cluster-service/jarr",
         "redis": {"host": "redis-cluster-service"},
         "metrics": {"host": "redis-cluster-service"}
     },
