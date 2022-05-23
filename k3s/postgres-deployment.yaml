@@ -33,15 +33,15 @@ spec:
             - name: postgres-pvc
               mountPath: /var/lib/postgresql/data
               subPath: postgres
-      #restartPolicy: Always
+      restartPolicy: Always
       volumes:
         - name: postgres-pvc
           persistentVolumeClaim:
             claimName: postgres-pvc
-      #affinity:
-      #  podAntiAffinity:
-      #    requiredDuringSchedulingIgnoredDuringExecution:
-      #    - topologyKey: kubernetes.io/hostname
-      #      labelSelector:
-      #        matchLabels:
-      #          app: app     
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchLabels:
+                app: postgres

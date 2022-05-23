@@ -4,7 +4,7 @@ metadata:
   name: promo-deployment
   namespace: gic2
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: promo
@@ -22,3 +22,10 @@ spec:
             - containerPort: 80
           resources: {}
       restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchLabels:
+                app: promo

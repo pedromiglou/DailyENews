@@ -4,7 +4,7 @@ metadata:
   name: client-deployment
   namespace: gic2
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: client
@@ -21,11 +21,11 @@ spec:
           ports:
             - containerPort: 80
           resources: {}
-      #restartPolicy: Always
-      #affinity:
-      #  podAntiAffinity:
-      #    requiredDuringSchedulingIgnoredDuringExecution:
-      #    - topologyKey: kubernetes.io/hostname
-      #      labelSelector:
-      #        matchLabels:
-      #          app: app     
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchLabels:
+                app: client

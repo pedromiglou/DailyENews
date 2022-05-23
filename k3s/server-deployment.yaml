@@ -4,7 +4,7 @@ metadata:
   name: server-deployment
   namespace: gic2
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: server
@@ -27,11 +27,11 @@ spec:
                   name: gic2-secret
                   key: password
           resources: {}
-      #restartPolicy: Always
-      #affinity:
-      #  podAntiAffinity:
-      #    requiredDuringSchedulingIgnoredDuringExecution:
-      #    - topologyKey: kubernetes.io/hostname
-      #      labelSelector:
-      #        matchLabels:
-      #          app: app     
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchLabels:
+                app: server 
