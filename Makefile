@@ -9,7 +9,7 @@ RUN = FLASK_APP=wsgi PIPENV_IGNORE_VIRTUALENVS=1 pipenv run
 COMPOSE = $(RUN) docker-compose --project-name jarr --file $(COMPOSE_FILE)
 TEST = tests/
 DB_NAME ?= jarr
-PUBLIC_URL ?= /
+PUBLIC_URL ?= /app
 REACT_APP_API_URL ?= http://api-gic2.k3s
 QUEUE ?= jarr,jarr-crawling,jarr-clustering
 DB_CONTAINER_NAME = postgres
@@ -37,12 +37,6 @@ build-client:
 
 push-client:
 	docker push registry.deti:5000/gic2/client
-
-build-promo:
-	docker build . --file Dockerfiles/promo -t registry.deti:5000/gic2/promo
-
-push-promo:
-	docker push registry.deti:5000/gic2/promo
 
 tag-postgres:
 	docker tag postgres:13 registry.deti:5000/gic2/postgres

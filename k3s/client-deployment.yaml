@@ -21,7 +21,19 @@ spec:
           ports:
             - containerPort: 80
           resources: {}
+          volumeMounts:
+            - name: client-config-map
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+              readOnly: true
       restartPolicy: Always
+      volumes:
+        - name: client-config-map
+          configMap:
+            name: client-config-map
+            items:
+               - key: default.conf
+                 path: default.conf
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

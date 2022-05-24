@@ -10,5 +10,5 @@ RUN yarn build
 
 FROM nginx:alpine
 EXPOSE 80
-COPY jsclient/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY promo /usr/share/nginx/html/
+COPY --from=builder /app/build /usr/share/nginx/html/app
