@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-deployment
+  name: redis-primary-deployment
   namespace: gic2
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: redis
+      app: redis-primary
   strategy: {}
   template:
     metadata:
       labels:
-        app: redis
+        app: redis-primary
     spec:
       containers:
         - name: redis
@@ -25,7 +25,7 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - topologyKey: kubernetes.io/hostname
-            labelSelector:
-              matchLabels:
-                app: redis   
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app: redis-primary
