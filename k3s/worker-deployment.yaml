@@ -20,8 +20,26 @@ spec:
           #imagePullPolicy: Never
           ports:
             - containerPort: 8001
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gic2-secret
+                  key: password
           resources: {}
+          volumeMounts:
+            - name: dns-config-map
+              mountPath: /etc/resolv.conf
+              subPath: resolv.conf
+              readOnly: true
       restartPolicy: Always
+      volumes:
+        - name: dns-config-map
+          configMap:
+            name: dns-config-map
+            items:
+               - key: resolv.conf
+                 path: resolv.conf
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -29,3 +47,4 @@ spec:
             labelSelector:
               matchLabels:
                 app: worker
+      dnsPolicy: Default

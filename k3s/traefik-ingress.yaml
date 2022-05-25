@@ -10,16 +10,6 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-permanent: "true"
 spec:
   rules:
-  - host: promo-gic2.k3s
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: promo-cluster-service
-              port: 
-                number: 80
   - host: app-gic2.k3s
     http:
       paths:

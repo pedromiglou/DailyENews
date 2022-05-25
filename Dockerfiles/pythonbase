@@ -16,7 +16,7 @@ RUN apt-get update \
 RUN apt-get install curl --yes --no-install-recommends
 RUN apt-get install iputils-ping --yes --no-install-recommends
 RUN apt-get install nano --yes --no-install-recommends
-#USER jarr
+USER jarr
 COPY ./Pipfil* /jarr/
 RUN mkdir /tmp/pipenv \
     && PIPENV_NOSPIN=true \
