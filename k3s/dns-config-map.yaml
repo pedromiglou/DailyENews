@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dns-config-map
+  namespace: gic2
+data:
+  resolv.conf: |
+    search gic2.svc.cluster.local svc.cluster.local cluster.local
+    nameserver 10.43.0.10
