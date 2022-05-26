@@ -28,18 +28,24 @@ spec:
                   key: password
           resources: {}
           volumeMounts:
-            - name: dns-config-map
+            - name: server-config-map
+              mountPath: /etc/jarr/jarr.json
+              subPath: jarr.json
+              readOnly: true
+            - name: server-config-map
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
               readOnly: true
       restartPolicy: Always
       volumes:
-        - name: dns-config-map
+        - name: server-config-map
           configMap:
-            name: dns-config-map
+            name: server-config-map
             items:
-               - key: resolv.conf
-                 path: resolv.conf
+            - key: jarr.json
+              path: jarr.json
+            - key: resolv.conf
+              path: resolv.conf
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

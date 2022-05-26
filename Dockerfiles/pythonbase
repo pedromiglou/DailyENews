@@ -25,7 +25,6 @@ RUN mkdir /tmp/pipenv \
     && rm -rf /tmp/pipenv
 
 # copy files
-COPY example_conf/jarr.json /etc/jarr/jarr.json
 COPY ./migrations/ /den/migrations
 COPY ./*.py /den/
 COPY ./jarr/ /den/jarr
