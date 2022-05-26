@@ -11,15 +11,18 @@ HOST = ""
 
 
 def set_redis_conn(host, port):
+    global REDIS, HOST
     REDIS = Sentinel([(host, port)])
     HOST = host
 
 
 def get_redis_master_conn():
+    global REDIS, HOST
     return REDIS.master_for(HOST)
 
 
 def get_redis_slave_conn():
+    global REDIS, HOST
     return REDIS.slave_for(HOST)
 
 

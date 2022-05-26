@@ -5,7 +5,7 @@
 
 import logging
 
-from lib.prometheus import set_redis_conn
+from jarr.lib.prometheus import set_redis_conn
 from redis import Redis
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base

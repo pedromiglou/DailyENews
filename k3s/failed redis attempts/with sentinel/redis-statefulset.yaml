@@ -5,7 +5,7 @@ metadata:
   namespace: gic2
 spec:
   serviceName: redis
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: redis
@@ -52,6 +52,8 @@ spec:
         ports:
         - containerPort: 6379
           name: redis
+        - containerPort: 26379
+          name: sentinel
         volumeMounts:
         - name: data
           mountPath: /data
