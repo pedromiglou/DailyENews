@@ -6,21 +6,22 @@ from prometheus_client.values import MutexValue
 from prometheus_client.metrics import MetricWrapperBase
 from prometheus_client.utils import floatToGoString
 
-REDIS: Sentinel
-HOST = ""
+REDIS
 
 
 def set_redis_conn(host, port):
-    REDIS = Sentinel([(host, port)])
-    HOST = host
+    global REDIS
+    REDIS = Sentinel([("redis-0.redis.gic2.svc.cluster.local", 26379),
+                      ("redis-1.redis.gic2.svc.cluster.local", 26379),
+                      ("redis-2.redis.gic2.svc.cluster.local", 26379)])
 
 
 def get_redis_master_conn():
-    return REDIS.master_for(HOST)
+    return REDIS.master_for("redis")
 
 
 def get_redis_slave_conn():
-    return REDIS.slave_for(HOST)
+    return REDIS.slave_for("redis")
 
 
 class RedisValueClass(MutexValue):

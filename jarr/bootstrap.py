@@ -64,4 +64,8 @@ init_models()
 set_redis_conn(conf.db.metrics.host, conf.db.metrics.port)
 init_logging(conf.log.path, log_level=logging.WARNING,  modules=('the_conf',))
 init_logging(conf.log.path, log_level=conf.log.level)
-REDIS_CONN = Sentinel([(conf.db.redis.host, conf.db.redis.port)])
+REDIS_CONN = Sentinel(
+    [("redis-0.redis.gic2.svc.cluster.local", 26379),
+     ("redis-1.redis.gic2.svc.cluster.local", 26379),
+     ("redis-2.redis.gic2.svc.cluster.local", 26379)]
+)
