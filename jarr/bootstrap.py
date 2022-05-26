@@ -67,4 +67,4 @@ set_redis_conn(host=conf.db.metrics.host,
 init_logging(conf.log.path, log_level=logging.WARNING,
              modules=('the_conf',))
 init_logging(conf.log.path, log_level=conf.log.level)
-REDIS_CONN = Sentinel([conf.db.redis.host, conf.db.redis.port])
+REDIS_CONN = Sentinel([(conf.db.redis.host, conf.db.redis.port)])
