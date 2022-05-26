@@ -31,8 +31,7 @@ def process_feed(feed_id):
 def clusterizer(user_id):
     logger.warning("Gonna clusterize pending articles")
     ClusterController(user_id).clusterize_pending_articles()
-    REDIS_CONN.master_for(conf.db.redis.host).delete(
-        JARR_CLUSTERIZER_KEY % user_id)
+    REDIS_CONN.delete(JARR_CLUSTERIZER_KEY % user_id)
 
 
 @celery_app.task(name='feed_cleaner')
@@ -55,7 +54,7 @@ def feed_cleaner(feed_id):
         fctrl.update({'id': feed_id}, {'status': FeedStatus.to_delete})
         raise
     finally:
-        REDIS_CONN.master_for(conf.db.redis.host).delete(JARR_FEED_DEL_KEY)
+        REDIS_CONN.delete(JARR_FEED_DEL_KEY)
 
 
 @celery_app.task(name='metrics.users.any')
@@ -109,8 +108,7 @@ def scheduler():
     # browsing feeds to delete
     feeds_to_delete = list(fctrl.read(status=FeedStatus.to_delete))
     if feeds_to_delete and REDIS_CONN.setnx(JARR_FEED_DEL_KEY, 'true'):
-        REDIS_CONN.master_for(conf.db.redis.host).expire(
-            JARR_FEED_DEL_KEY, LOCK_EXPIRE)
+        REDIS_CONN.expire(JARR_FEED_DEL_KEY, LOCK_EXPIRE)
         logger.info('%d to delete, deleting one', len(feeds_to_delete))
         for feed in feeds_to_delete:
             logger.debug("%r: scheduling to be delete", feed)
@@ -118,9 +116,9 @@ def scheduler():
     # applying clusterizer
     queue = Queues.CLUSTERING if conf.crawler.use_queues else Queues.DEFAULT
     for user_id in ArticleController.get_user_id_with_pending_articles():
-        if REDIS_CONN.master_for(conf.db.redis.host).setnx(JARR_CLUSTERIZER_KEY % user_id, 'true'):
-            REDIS_CONN.master_for(conf.db.redis.host).expire(JARR_CLUSTERIZER_KEY % user_id,
-                                                             conf.crawler.clusterizer_delay)
+        if REDIS_CONN.setnx(JARR_CLUSTERIZER_KEY % user_id, 'true'):
+            REDIS_CONN.expire(JARR_CLUSTERIZER_KEY % user_id,
+                              conf.crawler.clusterizer_delay)
             logger.debug('Scheduling clusterizer for User(%d) on queue:%r',
                          user_id, queue.value)
             clusterizer.apply_async(args=[user_id], queue=queue.value)

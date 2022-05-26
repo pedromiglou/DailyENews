@@ -1,5 +1,5 @@
 from prometheus_client import CollectorRegistry
-from jarr.lib.prometheus import Gauge, Counter, Histogram
+from prometheus_distributed_client import Gauge, Counter, Histogram
 
 REGISTRY = CollectorRegistry()
 BUCKETS_3H = [3, 4, 5, 6, 9, 12, 18, 26, 38, 57, 85, 126, 189, 282, 423, 633,

@@ -118,12 +118,12 @@ parameters:
   - pg_uri: {'default': 'postgresql://postgres:password@localhost:5432/jarr'}
   - redis:
     - host: {'default': 'redis'}
-    - db: {'default': 1}
+    - db: {'default': 0}
     - port: {'default': 6379}
     - password: {'default': ''}
   - metrics:
     - host: {'default': 'redis'}
-    - db: {'default': 2}
+    - db: {'default': 0}
     - port: {'default': 6379}
     - password: {'default': ''}
 - celery:
