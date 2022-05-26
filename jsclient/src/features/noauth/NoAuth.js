@@ -17,7 +17,7 @@ import SignUp from "./components/SignUp";
 import InitPasswordRecovery from "./components/InitPasswordRecovery";
 import PasswordRecovery from "./components/PasswordRecovery";
 import OAuthLogin from "./components/OAuthLogin";
-import jarrIcon from "../../components/JarrIcon.gif";
+import jarrIcon from "../../components/logo.png";
 
 function mapStateToProps(state) {
   return { isLoading: state.noauth.loading,
@@ -61,8 +61,8 @@ function NoAuth({ isLoading, noToken, savedLogin, savedPassword, recovery, hidde
       header = <Grid item><CircularProgress /></Grid>;
     } else {
       header = <Grid item className={classes.welcome}>
-        <img className={classes.jarrIcon} src={jarrIcon} alt="Welcome to JARR!" title="Welcome to JARR!"/>
-        <span>Welcome to JARR !</span>
+        <img className={classes.jarrIcon} src={jarrIcon} alt="Welcome to DailyENews!" title="Welcome to DailyENews!"/>
+        <span>Welcome to DailyENews !</span>
       </Grid>;
     }
     form = <Login isLoading={isLoading} />;
