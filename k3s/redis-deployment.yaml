@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: gic2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: registry.deti:5000/gic2/redis
+          #imagePullPolicy: Never
+          ports:
+            - containerPort: 6379
+          resources: {}
+      restartPolicy: Always

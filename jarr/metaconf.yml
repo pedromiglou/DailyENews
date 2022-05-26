@@ -117,18 +117,18 @@ parameters:
 - db:
   - pg_uri: {'default': 'postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@postgres-cluster-service/jarr'}
   - redis:
-    - host: {'default': 'redis'}
+    - host: {'default': 'redis-cluster-service'}
     - db: {'default': 1}
     - port: {'default': 6379}
-    - password: {'default': 'a-very-complex-password-here'}
+    - password: {'default': ''}
   - metrics:
-    - host: {'default': 'redis'}
+    - host: {'default': 'redis-cluster-service'}
     - db: {'default': 2}
     - port: {'default': 6379}
-    - password: {'default': 'a-very-complex-password-here'}
+    - password: {'default': ''}
 - celery:
   - broker: {'default': 'amqp://rabbitmq-cluster-service:5672//'}
-  - backend: {'default': 'redis://default:a-very-complex-password-here@redis:6379/0'}
+  - backend: {'default': 'redis://redis-cluster-service:6379/0'}
   - broker_url: {'default': 'amqp://rabbitmq-cluster-service:5672//'}
   - task_serializer: {'default': 'json'}
   - result_serializer: {'default': 'json'}
