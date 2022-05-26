@@ -29,8 +29,8 @@ def lock(prefix, expire=LOCK_EXPIRE):
             start = datetime.now()
             key = str(args).encode('utf8')
             key = f"lock-{prefix}-{sha256(key).hexdigest()}"
-            if REDIS_CONN.setnx(key, 'locked'):
-                REDIS_CONN.expire(key, expire)
+            if REDIS_CONN.master_for(conf.db.redis.host).setnx(key, 'locked'):
+                REDIS_CONN.master_for(conf.db.redis.host).expire(key, expire)
                 try:
                     return func(args)
                 except Exception as error:
@@ -40,7 +40,7 @@ def lock(prefix, expire=LOCK_EXPIRE):
                     raise
                 finally:
                     observe_worker_result_since(start, prefix, 'ok')
-                    REDIS_CONN.delete(key)
+                    REDIS_CONN.master_for(conf.db.redis.host).delete(key)
             else:
                 observe_worker_result_since(start, prefix, 'skipped')
         return wrapper

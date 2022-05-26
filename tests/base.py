@@ -16,7 +16,7 @@ DEFAULT_HEADERS = {'Content-Type': 'application/json',
 
 
 class BaseJarrTest(TestCase):
-    _contr_cls = lambda x=1: None
+    def _contr_cls(x=1): return None
     _application = None
 
     def create_app(self):
@@ -87,7 +87,7 @@ class BaseJarrTest(TestCase):
 
     def setUp(self):
         self.assertTrue(conf.jarr_testing, "configuration not set on testing")
-        REDIS_CONN.flushdb()
+        REDIS_CONN.master_for(conf.db.redis.host).flushdb()
         from jarr.api import get_cached_user
         get_cached_user.cache_clear()
         init_db()
@@ -96,7 +96,7 @@ class BaseJarrTest(TestCase):
         populate_db()
 
     def tearDown(self):
-        REDIS_CONN.flushdb()
+        REDIS_CONN.master_for(conf.db.redis.host).flushdb()
         from jarr.api import get_cached_user
         get_cached_user.cache_clear()
         self._drop_all()
@@ -117,8 +117,8 @@ class JarrFlaskCommon(BaseJarrTest):
 
     def get_token_for(self, user):
         auth_res = self.app.post('/auth', data=json.dumps(
-                {'login': user, 'password': user}),
-                headers=DEFAULT_HEADERS)
+            {'login': user, 'password': user}),
+            headers=DEFAULT_HEADERS)
         return auth_res.json['access_token']
 
     def jarr_client(self, method_name, *urn_parts, **kwargs):
