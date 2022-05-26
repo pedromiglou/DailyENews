@@ -38,10 +38,3 @@ spec:
         - name: postgres-pvc
           persistentVolumeClaim:
             claimName: postgres-pvc
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - topologyKey: kubernetes.io/hostname
-            labelSelector:
-              matchLabels:
-                app: postgres

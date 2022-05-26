@@ -4,7 +4,7 @@ metadata:
   name: rabbitmq-deployment
   namespace: gic2
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: rabbitmq

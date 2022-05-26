@@ -1,8 +1,8 @@
 FROM pythonbase:latest
 
-COPY example_conf/jarr.json /etc/jarr/jarr.json
-COPY jarr/metaconf.yml /etc/jarr/metaconf.yml
+# copy gunicorn configuration
 COPY example_conf/logging.ini /etc/jarr/logging.ini
 COPY example_conf/gunicorn.py /etc/jarr/gunicorn.py
+
 EXPOSE 8000
-CMD ["/jarr/jarr/start-server.sh"]
+CMD ["/den/jarr/start-server.sh"]

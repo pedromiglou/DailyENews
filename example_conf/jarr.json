@@ -8,9 +8,18 @@
         "level": 10
     },
     "db": {
-        "pg_uri": "postgresql+psycopg2://postgres:postgres@postgres-cluster-service/jarr"
+        "pg_uri": "postgresql+psycopg2://postgres:postgres@postgres-cluster-service/jarr",
+        "redis": {
+            "host": "redis-cluster-service"
+        },
+        "metrics": {
+            "host": "redis-cluster-service"
+        }
     },
-    "celery": {"broker": "amqp://rabbitmq-cluster-service//",
-               "broker_url": "amqp://rabbitmq-cluster-service//"},
+    "celery": {
+        "broker": "amqp://rabbitmq-cluster-service:5672//",
+        "backend": "redis://redis-cluster-service:6379/0",
+        "broker_url": "amqp://rabbitmq-cluster-service:5672//"
+    },
     "auth": {"secret_key": "my not so secret key"}
 }

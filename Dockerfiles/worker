@@ -1,5 +1,4 @@
 FROM pythonbase:latest
 
-COPY jarr/metaconf.yml /etc/jarr/metaconf.yml
 EXPOSE 8001
 CMD ["pipenv", "run", "celery", "--app", "ep_celery.celery_app", "worker"]

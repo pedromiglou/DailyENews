@@ -1,31 +1,31 @@
-FROM python:3.9-slim
+FROM python:3.9-alpine
 
-RUN useradd jarr --create-home --shell /bin/bash --home-dir /jarr --user-group
-COPY example_conf/jarr.json /etc/jarr/jarr.json
-WORKDIR /jarr
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends \
-        gcc \
-        python3-dev \
-        libxml2-dev \
-        postgresql-server-dev-all \
-    && pip install --no-cache-dir --upgrade pip pipenv \
-    && apt clean --yes \
-    && apt autoremove --yes \
-    && rm -rf /var/log/apt /var/cache/apt /var/log/apt
-RUN apt-get install curl --yes --no-install-recommends
-RUN apt-get install iputils-ping --yes --no-install-recommends
-RUN apt-get install nano --yes --no-install-recommends
-USER jarr
-COPY ./Pipfil* /jarr/
+# install apk dependencies
+RUN apk update
+RUN apk add gcc python3-dev libxml2-dev postgresql-dev jpeg-dev \
+    zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev \
+    tcl-dev harfbuzz-dev fribidi-dev musl-dev
+RUN rm -rf /var/log/apk
+
+# install/upgrade pipenv
+RUN pip install --no-cache-dir --upgrade pip pipenv
+
+# add a user to run the app
+RUN adduser den --shell /bin/bash --home /den --disabled-password
+USER den
+WORKDIR /den
+
+# install python dependencies
+COPY ./Pipfil* /den/
 RUN mkdir /tmp/pipenv \
     && PIPENV_NOSPIN=true \
         PIPENV_COLORBLIND=true \
         PIPENV_HIDE_EMOJIS=true \
         PIPENV_CACHE_DIR=/tmp/pipenv pipenv sync \
     && rm -rf /tmp/pipenv
-COPY ./migrations/ /jarr/migrations
-COPY ./*.py /jarr/
-COPY ./jarr/ /jarr/jarr
 
-VOLUME /etc/jarr/
+# copy files
+COPY example_conf/jarr.json /etc/jarr/jarr.json
+COPY ./migrations/ /den/migrations
+COPY ./*.py /den/
+COPY ./jarr/ /den/jarr
