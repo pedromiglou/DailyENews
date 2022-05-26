@@ -185,7 +185,7 @@ function TopMenu(props) {
     <AppBar position="fixed" className={className}>
       <Toolbar className={clsx(classes.toolbar)}>
         {menu}
-        <Typography>JARR</Typography>
+        <Typography>DailyENews</Typography>
         <div>
           <Tooltip title="Settings">
             <IconButton color="inherit" onClick={props.openEditPanel}>

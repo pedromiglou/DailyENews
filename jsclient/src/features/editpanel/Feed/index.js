@@ -100,7 +100,7 @@ const AddEditFeed = ({ job, categories, link, sameLinkCount,
       <FormControlLabel
         control={<Switch color="primary" checked={truncatedContent}
                     onChange={() => edit("truncated_content", !truncatedContent)} /> }
-        label="Active if this feed shows truncated content and you would like JARR to try to retrieve full articles" />
+        label="Active if this feed shows truncated content and you would like DailyENews to try to retrieve full articles" />
       <FormControl>
         <FormHelperText>Here you can change the category of the feed :</FormHelperText>
         <Select variant="outlined"

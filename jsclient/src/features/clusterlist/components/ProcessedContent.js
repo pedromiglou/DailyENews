@@ -41,7 +41,7 @@ function ProcessedContent({ content, hidden }) {
     body = (
       <Typography className={classes.videoContainer}>
         <iframe key="jarr-proccessed-content"
-          title="JARR processed Player"
+          title="DailyENews processed Player"
           id="ytplayer"
           type="text/html"
           src={`https://www.youtube-nocookie.com/embed/${content.link}`}

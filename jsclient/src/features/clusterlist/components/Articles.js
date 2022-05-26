@@ -14,7 +14,7 @@ import {articleTypes, TypedContents} from "./TypedContents";
 import ProcessedContent from "./ProcessedContent";
 import makeStyles from "./style";
 import ClusterIcon from "../../../components/ClusterIcon";
-import jarrIcon from "../../../components/JarrIcon.gif";
+import jarrIcon from "../../../components/logo.png";
 
 function mapStateToProps(state) {
   return { icons: state.feeds.icons,
