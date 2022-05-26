@@ -87,7 +87,7 @@ class BaseJarrTest(TestCase):
 
     def setUp(self):
         self.assertTrue(conf.jarr_testing, "configuration not set on testing")
-        REDIS_CONN.master_for(conf.db.redis.host).flushdb()
+        REDIS_CONN.flushdb()
         from jarr.api import get_cached_user
         get_cached_user.cache_clear()
         init_db()
@@ -96,7 +96,7 @@ class BaseJarrTest(TestCase):
         populate_db()
 
     def tearDown(self):
-        REDIS_CONN.master_for(conf.db.redis.host).flushdb()
+        REDIS_CONN.flushdb()
         from jarr.api import get_cached_user
         get_cached_user.cache_clear()
         self._drop_all()
