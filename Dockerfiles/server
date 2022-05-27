@@ -1,4 +1,4 @@
-FROM registry.deti:5000/gic2/worker:latest
+FROM pythonbase:latest
 
 # copy gunicorn configuration
 COPY example_conf/logging.ini /etc/jarr/logging.ini
