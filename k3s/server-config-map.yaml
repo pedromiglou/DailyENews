@@ -7,29 +7,3 @@ data:
   resolv.conf: |
     search gic2.svc.cluster.local svc.cluster.local cluster.local
     nameserver 10.43.0.10
-  jarr.json: |
-    {
-        "jarr_testing": false,
-        "crawler": {
-            "login": "admin",
-            "passwd": "admin"
-        },
-        "log": {
-            "level": 10
-        },
-        "db": {
-            "pg_uri": "postgresql+psycopg2://postgres:postgres@postgres-cluster-service/jarr",
-            "redis": {
-                "host": "redis-cluster-service"
-            },
-            "metrics": {
-                "host": "redis-cluster-service"
-            }
-        },
-        "celery": {
-            "broker": "amqp://rabbitmq-cluster-service:5672//",
-            "backend": "redis://redis-cluster-service:6379/0",
-            "broker_url": "amqp://rabbitmq-cluster-service:5672//"
-        },
-        "auth": {"secret_key": "my not so secret key"}
-    }

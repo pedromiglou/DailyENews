@@ -24,7 +24,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: gic2-secret
+                  name: gic2-db-secret
                   key: password
             - name: POSTGRES_DB
               value: "jarr"
