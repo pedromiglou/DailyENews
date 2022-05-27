@@ -57,7 +57,10 @@ push-rabbitmq:
 	docker push registry.deti:5000/gic2/rabbitmq
 
 set-password-secret:
-	kubectl create secret generic gic2-secret -n gic2 --from-literal password=postgres
+	kubectl create secret generic gic2-db-secret -n gic2 --from-literal password=postgres
+
+set-server-secret:
+	kubectl create secret generic gic2-server-secret -n gic2 --from-file=jarr.json=example_conf/k_jarr.json
 
 ########## original commands below ##########
 

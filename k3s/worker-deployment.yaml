@@ -4,7 +4,7 @@ metadata:
   name: worker-deployment
   namespace: gic2
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: worker
@@ -20,26 +20,27 @@ spec:
           #imagePullPolicy: Never
           ports:
             - containerPort: 8001
-          env:
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: gic2-secret
-                  key: password
           resources: {}
           volumeMounts:
-            - name: dns-config-map
+            - name: server-config-map
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
               readOnly: true
+            - name: gic2-server-secret
+              mountPath: /etc/jarr/jarr.json
+              subPath: jarr.json
+              readOnly: true
       restartPolicy: Always
       volumes:
-        - name: dns-config-map
+        - name: server-config-map
           configMap:
-            name: dns-config-map
+            name: server-config-map
             items:
-               - key: resolv.conf
-                 path: resolv.conf
+            - key: resolv.conf
+              path: resolv.conf
+        - name: gic2-server-secret
+          secret:
+            secretName: gic2-server-secret
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
