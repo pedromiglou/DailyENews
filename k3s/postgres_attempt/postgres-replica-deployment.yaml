@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-replica
+  namespace: gic2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-replica
+  serviceName: postgres-replica
+  template:
+    metadata:
+      labels:
+        app: postgres-replica
+    spec:
+      terminationGracePeriodSeconds: 10
+      initContainers:
+        - name: setup-replica-data-directory
+          image: registry.deti:5000/gic2/postgres-replica
+          
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gic2-secret
+                  key: password
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+
+          command:
+          - sh
+          - -c
+          - |
+            if [ -z "$(ls -A /var/lib/postgresql/data/pgdata)" ]; then
+                echo "Running pg_basebackup to catch up replication server...";
+                pg_basebackup -R -h postgres -D /var/lib/postgresql/data/pgdata -P -U replication; 
+                chown -R postgres:postgres $PGDATA;
+            else
+                echo "Skipping pg_basebackup because directory is not empty"; 
+            fi
+
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data/pgdata
+              name: postgres-replica-pvc
+              subPath: postgres
+      containers:
+        - name: postgres-replica
+          image: registry.deti:5000/gic2/postgres-replica
+          args: ['-c', 'config_file=/etc/postgres.conf']
+          #imagePullPolicy: Never
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gic2-secret
+                  key: password
+            - name: POSTGRES_DB
+              value: "jarr"
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+            - name: REPLICATION_PASSWORD
+              value: password
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+          resources: {}
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - exec pg_isready --host $POD_IP
+            failureThreshold: 6
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - exec pg_isready --host $POD_IP
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          volumeMounts:
+            - name: postgres-pvc
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+      restartPolicy: Always
+      volumes:
+        - name: postgres-replica-pvc
+          persistentVolumeClaim:
+            claimName: postgres-replica-pvc
