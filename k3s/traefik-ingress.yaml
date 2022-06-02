@@ -10,7 +10,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-permanent: "true"
 spec:
   rules:
-  - host: app-gic2.k3s
+  - host: www.dailyenews.k3s
     http:
       paths:
         - path: /
@@ -20,7 +20,7 @@ spec:
               name: client-cluster-service
               port: 
                 number: 80
-  - host: api-gic2.k3s
+  - host: api.dailyenews.k3s
     http:
       paths:
         - path: /
