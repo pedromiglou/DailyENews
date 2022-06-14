@@ -4,7 +4,7 @@ metadata:
   name: worker-deployment
   namespace: gic2
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: worker
