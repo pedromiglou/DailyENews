@@ -19,11 +19,11 @@ jobs:
         docker build . --file Dockerfiles/server -t registry.deti:5000/gic2/server
         docker build . --file Dockerfiles/worker -t registry.deti:5000/gic2/worker
         docker build . --file Dockerfiles/client -t registry.deti:5000/gic2/client --build-arg PUBLIC_URL=$(PUBLIC_URL) --build-arg REACT_APP_API_URL=$(REACT_APP_API_URL)
-    #- name: Push docker images
-    #  run: |
-    #    docker push registry.deti:5000/gic2/server
-    #    docker push registry.deti:5000/gic2/worker
-    #    docker push registry.deti:5000/gic2/client
+    - name: Push docker images
+      run: |
+        docker push registry.deti:5000/gic2/server
+        docker push registry.deti:5000/gic2/worker
+        docker push registry.deti:5000/gic2/client
     - name: Apply kubernetes configuration files
       run: |
         kubectl apply -f k3s/postgres
