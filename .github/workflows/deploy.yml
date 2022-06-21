@@ -59,4 +59,4 @@ jobs:
         kubectl apply -f k3s/monitoring
     - name: Test
       run: |
-        kubectl rollout restart k3s/client
+        kubectl set image deployment/client-deployment client=registry.deti:5000/gic2/client:latest -n gic2
