@@ -19,11 +19,25 @@ jobs:
         docker build . --file Dockerfiles/server -t registry.deti:5000/gic2/server
         docker build . --file Dockerfiles/worker -t registry.deti:5000/gic2/worker
         docker build . --file Dockerfiles/client -t registry.deti:5000/gic2/client --build-arg PUBLIC_URL=$(PUBLIC_URL) --build-arg REACT_APP_API_URL=$(REACT_APP_API_URL)
-    #- name: Push docker images
-    #  run: |
-    #    docker push registry.deti:5000/gic2/server
-    #    docker push registry.deti:5000/gic2/worker
-    #    docker push registry.deti:5000/gic2/client
+        docker pull postgres:13
+        docker tag postgres:13 registry.deti:5000/gic2/postgres
+        docker pull redis:latest
+        docker tag redis registry.deti:5000/gic2/redis
+        docker pull rabbitmq:latest
+        docker tag rabbitmq registry.deti:5000/gic2/rabbitmq
+    - name: Tag docker images with commit hash
+      run: |
+        docker tag registry.deti:5000/gic2/server registry.deti:5000/gic2/server:${GITHUB_SHA}
+        docker tag registry.deti:5000/gic2/worker registry.deti:5000/gic2/worker:${GITHUB_SHA}
+        docker tag registry.deti:5000/gic2/client registry.deti:5000/gic2/client:${GITHUB_SHA}
+        docker tag registry.deti:5000/gic2/postgres registry.deti:5000/gic2/postgres:${GITHUB_SHA}
+        docker tag registry.deti:5000/gic2/redis registry.deti:5000/gic2/redis:${GITHUB_SHA}
+        docker tag registry.deti:5000/gic2/rabbitmq registry.deti:5000/gic2/rabbitmq:${GITHUB_SHA}
+    - name: Push docker images
+      run: |
+        docker push registry.deti:5000/gic2/server
+        docker push registry.deti:5000/gic2/worker
+        docker push registry.deti:5000/gic2/client
     - name: Apply kubernetes configuration files
       run: |
         kubectl apply -f k3s/postgres
