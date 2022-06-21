@@ -59,4 +59,9 @@ jobs:
         kubectl apply -f k3s/monitoring
     - name: Test
       run: |
-        kubectl set image deployment/client-deployment client=registry.deti:5000/gic2/client:latest -n gic2
+        kubectl rollout restart deployment client-deployment -n gic2
+        kubectl rollout restart deployment worker-deployment -n gic2
+        kubectl rollout restart deployment server-deployment -n gic2
+        kubectl rollout restart deployment redis-deployment -n gic2
+        kubectl rollout restart deployment postgres-deployment -n gic2
+        kubectl rollout restart deployment rabbitmq-deployment -n gic2
