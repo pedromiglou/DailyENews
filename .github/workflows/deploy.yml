@@ -57,3 +57,6 @@ jobs:
         kubectl apply -f k3s/worker
         kubectl apply -f k3s/traefik-ingress.yaml
         kubectl apply -f k3s/monitoring
+    - name: Test
+      run: |
+        kubectl rollout restart k3s/client
