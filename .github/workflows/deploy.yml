@@ -57,7 +57,7 @@ jobs:
         kubectl apply -f k3s/worker
         kubectl apply -f k3s/traefik-ingress.yaml
         kubectl apply -f k3s/monitoring
-    - name: Test
+    - name: Reload the docker images in the pods
       run: |
         kubectl rollout restart deployment client-deployment -n gic2
         kubectl rollout restart deployment worker-deployment -n gic2
