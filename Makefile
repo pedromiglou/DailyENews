@@ -39,19 +39,19 @@ push-client:
 	docker push registry.deti:5000/gic2/client
 
 tag-postgres:
-	docker tag postgres:13 registry.deti:5000/gic2/postgres
+	docker tag postgres:13.7 registry.deti:5000/gic2/postgres
 
 push-postgres:
 	docker push registry.deti:5000/gic2/postgres
 
 tag-redis:
-	docker tag redis registry.deti:5000/gic2/redis
+	docker tag redis:7.0 registry.deti:5000/gic2/redis
 
 push-redis:
 	docker push registry.deti:5000/gic2/redis
 
 tag-rabbitmq:
-	docker tag rabbitmq registry.deti:5000/gic2/rabbitmq
+	docker tag rabbitmq:3.10 registry.deti:5000/gic2/rabbitmq
 
 push-rabbitmq:
 	docker push registry.deti:5000/gic2/rabbitmq
