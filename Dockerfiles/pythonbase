@@ -16,7 +16,7 @@ USER den
 WORKDIR /den
 
 # install python dependencies
-COPY ./Pipfil* /den/
+COPY ./Pipfile /den/
 RUN mkdir /tmp/pipenv \
     && PIPENV_NOSPIN=true \
         PIPENV_COLORBLIND=true \
