@@ -18,7 +18,7 @@ jobs:
         docker build . --file Dockerfiles/pythonbase -t pythonbase
         docker build . --file Dockerfiles/server -t registry.deti:5000/gic2/server
         docker build . --file Dockerfiles/worker -t registry.deti:5000/gic2/worker
-        docker build . --file Dockerfiles/client -t registry.deti:5000/gic2/client --build-arg PUBLIC_URL=$(PUBLIC_URL) --build-arg REACT_APP_API_URL=$(REACT_APP_API_URL)
+        docker build . --file Dockerfiles/client -t registry.deti:5000/gic2/client --build-arg PUBLIC_URL=${PUBLIC_URL} --build-arg REACT_APP_API_URL=${REACT_APP_API_URL}
         docker pull postgres:13.7
         docker tag postgres:13.7 registry.deti:5000/gic2/postgres
         docker pull redis:7.0
