@@ -11,6 +11,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from the_conf import TheConf
+from rediscluster import RedisCluster
 
 conf = TheConf('jarr/metaconf.yml')
 
@@ -66,6 +67,10 @@ set_redis_conn(host=conf.db.metrics.host,
 init_logging(conf.log.path, log_level=logging.WARNING,
              modules=('the_conf',))
 init_logging(conf.log.path, log_level=conf.log.level)
-REDIS_CONN = Redis(host=conf.db.redis.host,
-                   db=conf.db.redis.db,
-                   port=conf.db.redis.port)
+
+
+# Requires at least one node for cluster discovery. Multiple nodes is recommended.
+startup_nodes = [{"host": "redis2-cluster-service", "port": "6379"}]
+
+# Note: See note on Python 3 for decode_responses behaviour
+REDIS_CONN = RedisCluster(startup_nodes=startup_nodes, decode_responses=True)
