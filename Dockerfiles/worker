@@ -1,4 +1,4 @@
 FROM pythonbase:latest
 
 EXPOSE 8001
-CMD ["pipenv", "run", "celery", "--app", "ep_celery.celery_app", "worker"]
+CMD ["/den/jarr/start-worker.sh"]
