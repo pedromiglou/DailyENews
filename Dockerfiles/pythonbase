@@ -11,18 +11,19 @@ RUN rm -rf /var/log/apk
 RUN pip install --no-cache-dir --upgrade pip pipenv
 
 # add a user to run the app
-RUN adduser den --shell /bin/bash --home /den --disabled-password
-USER den
+#RUN adduser den --shell /bin/bash --home /den --disabled-password
+#USER den
 WORKDIR /den
 
 # install python dependencies
-COPY ./Pipfile /den/
+COPY ./Pipfil* /den/
 RUN mkdir /tmp/pipenv \
     && PIPENV_NOSPIN=true \
         PIPENV_COLORBLIND=true \
         PIPENV_HIDE_EMOJIS=true \
         PIPENV_CACHE_DIR=/tmp/pipenv pipenv sync \
     && rm -rf /tmp/pipenv
+RUN pipenv install redis-py-cluster
 
 # copy files
 COPY ./migrations/ /den/migrations
