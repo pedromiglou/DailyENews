@@ -17,7 +17,6 @@ WORKDIR /den
 
 # install python dependencies
 COPY ./Pipfil* /den/
-RUN pipenv lock
 RUN mkdir /tmp/pipenv \
     && PIPENV_NOSPIN=true \
         PIPENV_COLORBLIND=true \
