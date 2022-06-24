@@ -1,2 +1,2 @@
-from crawler.main import scheduler
+from jarr.crawler.main import scheduler
 scheduler.apply_async()
