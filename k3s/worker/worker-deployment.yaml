@@ -4,7 +4,7 @@ metadata:
   name: worker-deployment
   namespace: gic2
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: worker
@@ -41,11 +41,4 @@ spec:
         - name: gic2-server-secret
           secret:
             secretName: gic2-server-secret
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - topologyKey: kubernetes.io/hostname
-            labelSelector:
-              matchLabels:
-                app: worker
       dnsPolicy: Default
